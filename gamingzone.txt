@@ -1,0 +1,304 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Aug 16, 2024 at 11:44 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.1.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `gamingzone`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `arcade_machine`
+--
+
+CREATE TABLE `arcade_machine` (
+  `Machine_ID` int(11) NOT NULL,
+  `Game` varchar(100) DEFAULT NULL,
+  `Year` int(11) DEFAULT NULL,
+  `Floor` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `arcade_machine`
+--
+
+INSERT INTO `arcade_machine` (`Machine_ID`, `Game`, `Year`, `Floor`) VALUES
+(1, 'Mario', 2005, 1),
+(2, 'Grand Theft Auto', 2013, 1),
+(3, 'Pokemon', 2016, 2),
+(4, 'PUBG Battlegrounds', 2004, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `booking`
+--
+
+CREATE TABLE `booking` (
+  `Booking_ID` int(11) NOT NULL,
+  `Session_ID` int(11) DEFAULT NULL,
+  `Customer_ID` int(11) DEFAULT NULL,
+  `Date` date DEFAULT NULL,
+  `Member` char(1) DEFAULT NULL,
+  `Fee` decimal(10,2) DEFAULT NULL,
+  `Pre_paid` char(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `booking`
+--
+
+INSERT INTO `booking` (`Booking_ID`, `Session_ID`, `Customer_ID`, `Date`, `Member`, `Fee`, `Pre_paid`) VALUES
+(1, 1, 1, '2023-10-21', 'Y', NULL, NULL),
+(2, 1, 2, '2023-10-21', 'N', 1000.00, 'N'),
+(3, 1, 3, '2023-10-21', 'Y', 900.00, 'Y'),
+(4, 1, 4, '2023-10-25', 'N', 1000.00, 'N'),
+(5, 2, 1, '2023-10-21', 'Y', 450.00, 'N'),
+(6, 4, 1, '2023-10-06', 'Y', 450.00, 'Y');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `console`
+--
+
+CREATE TABLE `console` (
+  `Console_ID` int(11) NOT NULL,
+  `Name` varchar(50) DEFAULT NULL,
+  `PEGI` varchar(5) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `console`
+--
+
+INSERT INTO `console` (`Console_ID`, `Name`, `PEGI`, `Quantity`) VALUES
+(1, 'PS1', 'PG', 3),
+(2, 'PS2', 'PG', 2),
+(3, 'PS4', 'PG', 3),
+(4, 'Nintendo Switch', 'PG', 2),
+(5, 'Xbox 360', '15', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer`
+--
+
+CREATE TABLE `customer` (
+  `Customer_ID` int(11) NOT NULL,
+  `First_Name` varchar(50) DEFAULT NULL,
+  `Last_Name` varchar(50) DEFAULT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `Member_Type` varchar(10) DEFAULT NULL,
+  `Membership_Fee` decimal(10,2) DEFAULT NULL,
+  `Join_Date` date DEFAULT NULL,
+  `Date_of_Birth` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`Customer_ID`, `First_Name`, `Last_Name`, `Address`, `Member_Type`, `Membership_Fee`, `Join_Date`, `Date_of_Birth`) VALUES
+(1, 'Saroj', 'Upadhyay', 'Dillibazar, Kathmandu', 'Standard', 1000.00, '2023-09-01', '1998-02-01'),
+(2, 'Neha', 'Kakkar', 'Putalisadak, Kathmandu', 'Premium', 14000.00, '2023-06-05', '2000-10-15'),
+(3, 'Himani', 'Puri', 'Baneshwor, Kathmandu', 'Premium', 14000.00, '0000-00-00', '2001-07-20'),
+(4, 'Ritesh', 'Gurung', 'Gaushala, Kathmandu', 'Standard', 1000.00, '2023-04-05', '1983-05-03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `game`
+--
+
+CREATE TABLE `game` (
+  `Game_ID` int(11) NOT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `PEGI` varchar(5) DEFAULT NULL,
+  `Console_ID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `game`
+--
+
+INSERT INTO `game` (`Game_ID`, `Name`, `PEGI`, `Console_ID`) VALUES
+(1, 'FIFA 18', 'PG', 1),
+(2, 'FIFA 18', 'PG', 2),
+(3, 'Horizon Zero Dawn', 'PG', 3),
+(4, 'Legend of Zelda', 'PG', 4),
+(5, 'Halo 3', '15', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `session`
+--
+
+CREATE TABLE `session` (
+  `Session_ID` int(11) NOT NULL,
+  `Day` varchar(10) DEFAULT NULL,
+  `Start_Time` time DEFAULT NULL,
+  `End_Time` time DEFAULT NULL,
+  `Type` varchar(10) DEFAULT NULL,
+  `Floor` int(11) DEFAULT NULL,
+  `Price` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `session`
+--
+
+INSERT INTO `session` (`Session_ID`, `Day`, `Start_Time`, `End_Time`, `Type`, `Floor`, `Price`) VALUES
+(1, 'Sunday', '11:00:00', '19:00:00', 'Free', 1, 1000.00),
+(2, 'Sunday', '11:00:00', '19:00:00', 'Free', 2, 500.00),
+(3, 'Saturday', '11:00:00', '19:00:00', 'Free', 1, 1000.00),
+(4, 'Friday', '19:00:00', '22:00:00', 'Special', 2, 500.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `session_console`
+--
+
+CREATE TABLE `session_console` (
+  `Session_Console_ID` int(11) NOT NULL,
+  `Session_ID` int(11) DEFAULT NULL,
+  `Console_ID` int(11) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `session_console`
+--
+
+INSERT INTO `session_console` (`Session_Console_ID`, `Session_ID`, `Console_ID`, `Quantity`) VALUES
+(1, 1, 1, 2),
+(2, 2, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff`
+--
+
+CREATE TABLE `staff` (
+  `Staff_ID` int(11) NOT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `Role` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`Staff_ID`, `Name`, `Role`) VALUES
+(1, 'Sujal Bohara', 'Cafe'),
+(2, 'Rajesh Hamal', 'Maintenance'),
+(3, 'Rooz Ojha', 'Counter'),
+(4, 'Rashi Timsina', 'Counter'),
+(5, 'Jack Jones', 'Maintenance');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `arcade_machine`
+--
+ALTER TABLE `arcade_machine`
+  ADD PRIMARY KEY (`Machine_ID`);
+
+--
+-- Indexes for table `booking`
+--
+ALTER TABLE `booking`
+  ADD PRIMARY KEY (`Booking_ID`),
+  ADD KEY `Session_ID` (`Session_ID`),
+  ADD KEY `Customer_ID` (`Customer_ID`);
+
+--
+-- Indexes for table `console`
+--
+ALTER TABLE `console`
+  ADD PRIMARY KEY (`Console_ID`);
+
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`Customer_ID`);
+
+--
+-- Indexes for table `game`
+--
+ALTER TABLE `game`
+  ADD PRIMARY KEY (`Game_ID`),
+  ADD KEY `Console_ID` (`Console_ID`);
+
+--
+-- Indexes for table `session`
+--
+ALTER TABLE `session`
+  ADD PRIMARY KEY (`Session_ID`);
+
+--
+-- Indexes for table `session_console`
+--
+ALTER TABLE `session_console`
+  ADD PRIMARY KEY (`Session_Console_ID`),
+  ADD KEY `Session_ID` (`Session_ID`),
+  ADD KEY `Console_ID` (`Console_ID`);
+
+--
+-- Indexes for table `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`Staff_ID`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `booking`
+--
+ALTER TABLE `booking`
+  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`Session_ID`) REFERENCES `session` (`Session_ID`),
+  ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`Customer_ID`) REFERENCES `customer` (`Customer_ID`);
+
+--
+-- Constraints for table `game`
+--
+ALTER TABLE `game`
+  ADD CONSTRAINT `game_ibfk_1` FOREIGN KEY (`Console_ID`) REFERENCES `console` (`Console_ID`);
+
+--
+-- Constraints for table `session_console`
+--
+ALTER TABLE `session_console`
+  ADD CONSTRAINT `session_console_ibfk_1` FOREIGN KEY (`Session_ID`) REFERENCES `session` (`Session_ID`),
+  ADD CONSTRAINT `session_console_ibfk_2` FOREIGN KEY (`Console_ID`) REFERENCES `console` (`Console_ID`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
